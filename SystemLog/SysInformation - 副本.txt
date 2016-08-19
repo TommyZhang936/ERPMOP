@@ -1,0 +1,79 @@
+﻿【1.0.0】
+1、20151219-实现除最终修改订单以外其他功能
+2、20151220-实现全局参数的定义、调用和修改
+
+【1.0.1】
+1、20151222-实现自定义窗口等功能
+2、20151222-参考网上资料实现了使用Awesome图标字体库
+3、20151222-实现tableView功能(后续需要实现更新\点选事件等功能)
+
+【1.0.2】
+1、20151223-实现系统全部基本功能
+2、20151223-实现table数据查询更新显示基本功能（后续实现点选事件等功能）
+3、20151223-完成DOM方式XML文件的创建增加写入等基本功能（后续需要实现通用性等功能）
+
+***** 将视图更新为直接去除status为3和4的订单，即不包含”已完成“和”关闭“的订单！
+--//定义视图
+/*先删除视图*/
+IF EXISTS (SELECT * FROM sysobjects WHERE /*检测是否存在*/
+                         name = 'v_orderprice')
+     DROP VIEW v_orderprice
+go
+
+create view v_orderprice
+as
+select	d60.rkey
+	,d60.sales_order		as order_no
+	--,CUSTOMER_PTR
+	,d10.cust_code
+	,d10.abbr_name
+	--,CUST_PART_PTR
+	,d50.customer_part_number	as prod_no
+	,d50.cp_rev1		as prod_ver
+	,d60.PARTS_ORDERED	as pcs_qty
+	,d50.set_x_qty		as x
+	,d50.set_y_qty		as y
+	,d60.set_ordered		as set_qty
+	,d60.part_price		as pcs_price
+	,d60.set_price		as set_price
+	,d60.exch_rate		as ex_rate
+	,d60.so_style
+	,d60.status
+	,d60.analysis_code_5		as MP_remark
+	,d50.RKEY			as D50rkey
+
+from data0060 d60
+	join data0050 d50 on d60.CUST_PART_PTR	= d50.rkey
+	join data0010 d10 on d60.CUSTOMER_PTR	= d10.rkey
+where so_style = '1'
+	AND [STATUS] NOT IN (3, 4, 5)
+	//20151230增加限制5(过滤"取消订单")
+
+go
+--视图定义结束
+
+【1.0.3】-第一个可发布版本
+1、20151229-今日解决了所有影响系统发布的问题，形成第一个可发布的版本
+2、20151229-解决样式表问题（MainWindow）不能用样式表（通用样式表和换肤功能留待后面研究）
+3、20151229-解决子窗口弹出多个和崩溃问题
+4、20151229-解决静态编译相关库集中问题（参考http://qtdream.com/topic/55/qt-widgets-application-%E5%92%8C-qt-quick-application%E4%B8%A4%E7%B1%BBexe%E7%9A%84%E5%8F%91%E5%B8%83%E6%96%B9%E5%BC%8F）
+	使用Qt提供的windeployqt工具
+5、20151229-解决1.0.2-2的双击提取资料的功能
+
+【1.0.4】
+1、20151231-发现修改数据库出错，少了限制条件，导致更改了已经完成的订单单价（后台数据已经修正，程序已修正）
+	视图和更新表之间的关联关系（考虑在视图里面不增加限制条件）
+2、20151231-发现内部版本不能全部修改，原因是DB50表里面是不同的rkey，待修正
+3、20151231-为处理2，考虑用右键单独修改指定订单单价，待实现
+
+【1.1.0】
+1、20160101-处理Config文件分类，完成
+
+【1.1.1】
+1、20160102-处理内部版本不一致修改不到的问题（右键事件没有搞定，只好用了单击取值双击单独修改的方法）
+2、20160102-增加了清除订单修订备注的按钮
+
+【1.1.2】
+1、20160103-增加了状态栏信息，完成子窗口信号槽传递信息方法
+2、20160103-耶，爽～终于搞定右键功能(基本同1信号槽方式：定义右键菜单自定义模式，将信号发出到右键动作槽上)
+

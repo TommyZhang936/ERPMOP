@@ -1,0 +1,5 @@
+[AppConfig]
+AppTitle=ERP\x7cfb\x7edf\x5ba2\x6237\x8ba2\x5355\x4fee\x8ba2\x7cfb\x7edf
+AppName=ERPMOP
+UserName=admin
+CustomerName=\x5bcc\x58eb\x5eb7\x6c47\x603b

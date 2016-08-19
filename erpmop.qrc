@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Exit.png</file>
+        <file>images/MainWork.png</file>
+        <file>images/Password.png</file>
+        <file>images/BackgroundM1.gif</file>
+        <file>images/BackgroundT1.gif</file>
+        <file>images/Icon128.png</file>
+        <file>images/Icon64.png</file>
+        <file>images/BackgroundM3.gif</file>
+    </qresource>
+</RCC>

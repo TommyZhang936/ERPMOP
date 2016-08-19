@@ -1,0 +1,16 @@
+[AppConfig]
+AppTitle=ERP\x7cfb\x7edf\x5ba2\x6237\x8ba2\x5355\x4fee\x8ba2\x7cfb\x7edf
+AppName=ERPMOP
+AppVer=Ver 1.1.1.160102
+
+[UserConfig]
+UserName=admin
+
+[WorkConfig]
+CustomerName=\x5bcc\x58eb\x5eb7\x6c47\x603b
+
+[DBConfig]
+DBServer=127.0.0.1	
+DBName=ERP-PCB1
+DBUS1=xj
+DBUS2="Gsi99?223?"
